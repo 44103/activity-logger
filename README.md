@@ -2,22 +2,34 @@
 
 A simple script to log the active window title and process name.
 
-## Installation (Windows)
+## Installation
 
+This script will create the installation directory (`~/activity-logger`) and download the appropriate logger script.
+
+### Windows (PowerShell)
 Run the following command in PowerShell to install the logger:
-
 ```powershell
 irm https://raw.githubusercontent.com/44103/activity-logger/main/install.ps1 | iex
 ```
 
-This script will:
-1. Create the installation directory at `~\activity-logger`.
-2. Download `logger.ps1` from the repository.
+### macOS (bash)
+Run the following command in your terminal to install the logger:
+```bash
+curl -sL https://raw.githubusercontent.com/44103/activity-logger/main/install.sh | bash
+```
 
-## Usage (Windows)
+## Usage
 
-To start the logger manually, run:
+This will start the logger process in the background. Logs are saved to the `logs` subdirectory within the installation folder.
+
+### Windows (PowerShell)
 
 ```powershell
 powershell -ExecutionPolicy Bypass -WindowStyle Hidden -File "$env:USERPROFILE\activity-logger\logger.ps1"
+```
+
+### macOS (bash)
+
+```bash
+~/activity-logger/logger.sh
 ```
