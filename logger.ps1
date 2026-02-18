@@ -45,8 +45,8 @@ while ($true) {
         [void][Win32Api]::GetWindowText($hWnd, $title, 256)
 
         $process = Get-Process -Id $processId -ErrorAction SilentlyContinue
-        $processName = if ($process) { $process.ProcessName } else { "Unknown" }
-        $windowTitle = $title.ToString()
+        $processName = if ($process) { $process.ProcessName -replace '[\r\n]+', '' } else { "Unknown" }
+        $windowTitle = $title.ToString() -replace '[\r\n]+', ''
     } catch {
         $processName = "Error"
         $windowTitle = "Failed to get window title"
