@@ -22,7 +22,6 @@ while true; do
     fi
 
     # AppleScript でアクティブなウィンドウ情報を取得
-    # 1行目: プロセス名, 2行目: ウィンドウタイトル
     INFO=$(osascript -e '
         tell application "System Events"
             set frontApp to first application process whose frontmost is true
@@ -33,13 +32,13 @@ while true; do
                     set windowTitle to name of front window
                 end tell
             end try
-            return frontAppName & "\n" & windowTitle
+            return frontAppName & "|" & windowTitle
         end tell
     ' 2>/dev/null)
 
     if [ $? -eq 0 ]; then
-        PROCESS_NAME=$(echo "$INFO" | head -n 1)
-        WINDOW_TITLE=$(echo "$INFO" | tail -n +2)
+        PROCESS_NAME=$(echo "$INFO" | cut -d'|' -f1)
+        WINDOW_TITLE=$(echo "$INFO" | cut -d'|' -f2- | tr -d '\n\r')
     else
         PROCESS_NAME="Error"
         WINDOW_TITLE="Failed to get window title"
